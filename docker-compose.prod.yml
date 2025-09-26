@@ -16,7 +16,7 @@ services:
       - APP_DEBUG=false
       - DB_HOST=mysql
       - DB_DATABASE=${DB_DATABASE:-fastkart}
-      - DB_USERNAME=${DB_USERNAME:-root}
+      - DB_USERNAME=${DB_USERNAME:-fastkart}
       - DB_PASSWORD=${DB_PASSWORD}
       - REDIS_HOST=redis
       - CACHE_DRIVER=redis
@@ -53,8 +53,8 @@ services:
     environment:
       MYSQL_DATABASE: ${DB_DATABASE:-fastkart}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME:-fastkart}
       MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME:-root}
     volumes:
       - mysql_data:/var/lib/mysql
       - /var/www/html/fastkart-laravel-api/docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
@@ -89,7 +89,7 @@ services:
       - APP_DEBUG=false
       - DB_HOST=mysql
       - DB_DATABASE=${DB_DATABASE:-fastkart}
-      - DB_USERNAME=${DB_USERNAME:-root}
+      - DB_USERNAME=${DB_USERNAME:-fastkart}
       - DB_PASSWORD=${DB_PASSWORD}
       - REDIS_HOST=redis
       - QUEUE_CONNECTION=redis
@@ -119,7 +119,7 @@ services:
       - APP_DEBUG=false
       - DB_HOST=mysql
       - DB_DATABASE=${DB_DATABASE:-fastkart}
-      - DB_USERNAME=${DB_USERNAME:-root}
+      - DB_USERNAME=${DB_USERNAME:-fastkart}
       - DB_PASSWORD=${DB_PASSWORD}
       - REDIS_HOST=redis
     depends_on:
