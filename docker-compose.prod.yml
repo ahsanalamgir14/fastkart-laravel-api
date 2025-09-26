@@ -9,6 +9,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - .:/var/www/html
+      - vendor_data:/var/www/html/vendor
       - ./storage:/var/www/html/storage
       - ./bootstrap/cache:/var/www/html/bootstrap/cache
     environment:
@@ -82,6 +83,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - .:/var/www/html
+      - vendor_data:/var/www/html/vendor
     command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
     environment:
       - APP_ENV=production
@@ -108,6 +110,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - .:/var/www/html
+      - vendor_data:/var/www/html/vendor
     command: >
       sh -c "while true; do
         php artisan schedule:run --verbose --no-interaction &
@@ -131,6 +134,8 @@ volumes:
   mysql_data:
     driver: local
   redis_data:
+    driver: local
+  vendor_data:
     driver: local
 
 networks:
