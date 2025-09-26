@@ -8,7 +8,7 @@ services:
     restart: unless-stopped
     working_dir: /var/www/html/fastkart-laravel-api
     volumes:
-      - .:/var/www/html/fastkart-laravel-api
+      - ./:/var/www/html/fastkart-laravel-api
       - vendor_data:/var/www/html/fastkart-laravel-api/vendor
     environment:
       - APP_ENV=production
