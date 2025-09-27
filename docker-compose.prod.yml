@@ -10,13 +10,14 @@ services:
     volumes:
       - ./:/var/www/html/fastkart-laravel-api
       - vendor_data:/var/www/html/fastkart-laravel-api/vendor
+      - ./.env.production:/var/www/html/fastkart-laravel-api/.env
     environment:
       - APP_ENV=production
       - APP_DEBUG=false
       - DB_HOST=mysql
-      - DB_DATABASE=${DB_DATABASE:-fastkart}
-      - DB_USERNAME=${DB_USERNAME:-fastkart}
-      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=fastkart
+      - DB_USERNAME=fastkart
+      - DB_PASSWORD=FastKart_Ebstor_2024!
       - REDIS_HOST=redis
       - CACHE_DRIVER=redis
       - SESSION_DRIVER=redis
@@ -49,10 +50,10 @@ services:
     container_name: fastkart-mysql-prod
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE:-fastkart}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME:-fastkart}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: fastkart
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_USER: fastkart
+      MYSQL_PASSWORD: secret
     volumes:
       - mysql_data:/var/lib/mysql
       - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
@@ -82,14 +83,15 @@ services:
     volumes:
       - .:/var/www/html/fastkart-laravel-api
       - vendor_data:/var/www/html/fastkart-laravel-api/vendor
+      - ./.env.production:/var/www/html/fastkart-laravel-api/.env
     command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
     environment:
       - APP_ENV=production
       - APP_DEBUG=false
       - DB_HOST=mysql
-      - DB_DATABASE=${DB_DATABASE:-fastkart}
-      - DB_USERNAME=${DB_USERNAME:-fastkart}
-      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=fastkart
+      - DB_USERNAME=fastkart
+      - DB_PASSWORD=FastKart_Ebstor_2024!
       - REDIS_HOST=redis
       - QUEUE_CONNECTION=redis
     depends_on:
