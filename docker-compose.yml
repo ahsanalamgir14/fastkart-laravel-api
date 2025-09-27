@@ -8,12 +8,12 @@ services:
       dockerfile: Dockerfile
     container_name: fastkart-app
     restart: unless-stopped
-    working_dir: /var/www/html
+    working_dir: /var/www/html/fastkart-laravel-api
     volumes:
-      - ./:/var/www/html
-      - vendor_data:/var/www/html/vendor
-      - ./storage:/var/www/html/storage
-      - ./bootstrap/cache:/var/www/html/bootstrap/cache
+      - ./:/var/www/html/fastkart-laravel-api
+      - vendor_data:/var/www/html/fastkart-laravel-api/vendor
+      - ./storage:/var/www/html/fastkart-laravel-api/storage
+      - ./bootstrap/cache:/var/www/html/fastkart-laravel-api/bootstrap/cache
     environment:
       - APP_ENV=local
       - APP_DEBUG=true
@@ -39,7 +39,7 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ./:/var/www/html
+      - ./:/var/www/html/fastkart-laravel-api
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - app
@@ -83,10 +83,10 @@ services:
       dockerfile: Dockerfile
     container_name: fastkart-queue
     restart: unless-stopped
-    working_dir: /var/www/html
+    working_dir: /var/www/html/fastkart-laravel-api
     volumes:
-      - ./:/var/www/html
-      - vendor_data:/var/www/html/vendor
+      - ./:/var/www/html/fastkart-laravel-api
+      - vendor_data:/var/www/html/fastkart-laravel-api/vendor
     command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
     environment:
       - APP_ENV=local
@@ -109,10 +109,10 @@ services:
       dockerfile: Dockerfile
     container_name: fastkart-scheduler
     restart: unless-stopped
-    working_dir: /var/www/html
+    working_dir: /var/www/html/fastkart-laravel-api
     volumes:
-      - ./:/var/www/html
-      - vendor_data:/var/www/html/vendor
+      - ./:/var/www/html/fastkart-laravel-api
+      - vendor_data:/var/www/html/fastkart-laravel-api/vendor
     command: >
       sh -c "while true; do
         php artisan schedule:run --verbose --no-interaction &

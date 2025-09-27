@@ -51,14 +51,25 @@ RUN mkdir -p /var/www/html/fastkart-laravel-api/storage/app/public \
     && mkdir -p /var/www/html/fastkart-laravel-api/storage/logs \
     && mkdir -p /var/www/html/fastkart-laravel-api/bootstrap/cache \
     && chown -R www-data:www-data /var/www/html/fastkart-laravel-api \
+    && chmod -R 755 /var/www/html/fastkart-laravel-api \
     && chmod -R 775 /var/www/html/fastkart-laravel-api/storage \
     && chmod -R 775 /var/www/html/fastkart-laravel-api/bootstrap/cache
 
 # Copy PHP configuration
 COPY docker/php/php.ini /usr/local/etc/php/conf.d/custom.ini
 
+# Create startup script
+RUN echo '#!/bin/bash\n\
+# Fix permissions on startup\n\
+chown -R www-data:www-data /var/www/html/fastkart-laravel-api\n\
+chmod -R 755 /var/www/html/fastkart-laravel-api\n\
+chmod -R 775 /var/www/html/fastkart-laravel-api/storage\n\
+chmod -R 775 /var/www/html/fastkart-laravel-api/bootstrap/cache\n\
+# Start PHP-FPM\n\
+exec php-fpm' > /usr/local/bin/start.sh && chmod +x /usr/local/bin/start.sh
+
 # Expose port 9000 for PHP-FPM
 EXPOSE 9000
 
-# Start PHP-FPM
-CMD ["php-fpm"]
+# Start PHP-FPM with permission fix
+CMD ["/usr/local/bin/start.sh"]
