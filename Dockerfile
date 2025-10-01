@@ -43,7 +43,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy composer files and install dependencies
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader --no-scripts --verbose
+RUN rm -f composer.lock && composer install --no-dev --optimize-autoloader --no-scripts --verbose
 
 # Copy application code
 COPY . .

@@ -19,7 +19,6 @@
         "laravel/framework": "^11.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9.0",
-        "laravesl/phpunit": "dev-main",
         "league/flysystem-aws-s3-v3": "^3.0",
         "maatwebsite/excel": "^3.1.0",
         "mll-lab/laravel-graphiql": "^3.0",
@@ -37,7 +36,7 @@
         "matanyadaev/laravel-eloquent-spatial": "^4.2"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.23",
+        "fakerphp/faker": "^1.24",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
