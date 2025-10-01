@@ -1,5 +1,5 @@
-# Use PHP 8.1 FPM as base image
-FROM php:8.1-fpm
+# Use PHP 8.2 FPM as base image
+FROM php:8.2-fpm
 
 # Set working directory
 WORKDIR /var/www/html/fastkart-laravel-api
@@ -43,7 +43,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy composer files and install dependencies
 COPY composer.json composer.lock ./
-RUN rm -f composer.lock && composer install --no-dev --optimize-autoloader --no-scripts --verbose
+RUN rm -f composer.lock && composer install --no-dev --optimize-autoloader --no-scripts --verbose --ignore-platform-reqs
 
 # Copy application code
 COPY . .
