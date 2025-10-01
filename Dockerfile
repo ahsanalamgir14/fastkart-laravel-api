@@ -16,11 +16,15 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
+    libicu-dev \
+    libssl-dev \
+    pkg-config \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-configure intl \
     && docker-php-ext-install -j$(nproc) \
     pdo_mysql \
     mbstring \
@@ -28,7 +32,8 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     pcntl \
     bcmath \
     gd \
-    zip
+    zip \
+    intl
 
 # Install Redis extension
 RUN pecl install redis && docker-php-ext-enable redis
@@ -38,7 +43,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy composer files and install dependencies
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader --no-scripts
+RUN composer install --no-dev --optimize-autoloader --no-scripts --verbose
 
 # Copy application code
 COPY . .
