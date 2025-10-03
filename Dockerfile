@@ -43,13 +43,13 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy composer files and install dependencies
 COPY composer.json composer.lock ./
-RUN rm -f composer.lock && composer install --ignore-platform-reqs
+RUN rm -f composer.lock && composer install --no-dev --optimize-autoloader --no-scripts --verbose --ignore-platform-reqs
 
 # Copy application code
 COPY . .
 
 # Run composer dump-autoload for optimized autoloading
-RUN composer dump-autoload --optimize
+RUN composer dump-autoload --optimize --ignore-platform-reqs
 
 # Create directories if they don't exist and set permissions
 RUN mkdir -p /var/www/html/fastkart-laravel-api/storage/app/public \
