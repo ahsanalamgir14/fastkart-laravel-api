@@ -48,6 +48,9 @@ RUN rm -f composer.lock && composer install --no-dev --optimize-autoloader --no-
 # Copy application code
 COPY . .
 
+# Run composer dump-autoload for optimized autoloading
+RUN composer dump-autoload --optimize
+
 # Create directories if they don't exist and set permissions
 RUN mkdir -p /var/www/html/fastkart-laravel-api/storage/app/public \
     && mkdir -p /var/www/html/fastkart-laravel-api/storage/framework/cache \
