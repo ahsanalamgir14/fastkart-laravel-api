@@ -42,8 +42,8 @@ RUN pecl install redis && docker-php-ext-enable redis
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy composer files and install dependencies
-COPY composer.json composer.lock ./
-RUN rm -f composer.lock && composer install --no-dev --optimize-autoloader --no-scripts --verbose --ignore-platform-reqs
+    COPY composer.json ./
+    RUN composer install --no-dev --optimize-autoloader --no-scripts --verbose --ignore-platform-reqs
 
 # Copy application code
 COPY . .
